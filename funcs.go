@@ -22,6 +22,10 @@ func IsDefaultValue(a interface{}) bool {
 		return a.(uint32) == 0
 	case uint64:
 		return a.(uint64) == 0
+	case float32:
+		return a.(float32) == 0
+	case float64:
+		return a.(float64) == 0
 	case string:
 		return a == ""
 	}
