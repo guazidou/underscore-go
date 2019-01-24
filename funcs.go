@@ -35,3 +35,7 @@ func IsDefaultValue(a interface{}) bool {
 func NotEmpty(s string) bool {
 	return !IsDefaultValue(s)
 }
+
+func NotNilNorEmpty(s *string) bool {
+	return s != nil && !IsDefaultValue(*s)
+}
