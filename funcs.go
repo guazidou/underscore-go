@@ -39,3 +39,19 @@ func NotEmpty(s string) bool {
 func NotNilNorEmpty(s *string) bool {
 	return s != nil && !IsDefaultValue(*s)
 }
+
+// Return the first string if it's not empty, otherwise return second one. Short cut for golang if else
+func OrString(s1, s2 string) string {
+	if NotEmpty(s1) {
+		return s1
+	}
+	return s2
+}
+
+// Return the first string array if it's not empty, otherwise return second one. Short cut for golang if else
+func OrStringArray(arr1, arr2 []string) []string {
+	if len(arr1) == 0 {
+		return arr2
+	}
+	return arr1
+}
