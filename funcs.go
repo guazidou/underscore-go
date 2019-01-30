@@ -72,6 +72,18 @@ func OrStringArray(arr1, arr2 []string, arrs ...[]string) []string {
 	return []string{}
 }
 
+func OrBool(a, b bool, bs ...bool) bool {
+	if a || b {
+		return a || b
+	}
+	for _, v := range bs {
+		if v {
+			return v
+		}
+	}
+	return false
+}
+
 func Or(a, b interface{}, vals ...interface{}) interface{} {
 	if !IsDefaultValue(a) {
 		return a
