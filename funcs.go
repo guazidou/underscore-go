@@ -84,6 +84,21 @@ func OrBool(a, b bool, bs ...bool) bool {
 	return false
 }
 
+func OrInt64(a, b int64, is ...int64) int64 {
+	if !IsDefaultValue(a) {
+		return a
+	}
+	if !IsDefaultValue(b) {
+		return b
+	}
+	for _, v := range is {
+		if !IsDefaultValue(v) {
+			return v
+		}
+	}
+	return 0
+}
+
 func Or(a, b interface{}, vals ...interface{}) interface{} {
 	if !IsDefaultValue(a) {
 		return a
