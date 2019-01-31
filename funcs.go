@@ -99,6 +99,66 @@ func OrInt64(a, b int64, is ...int64) int64 {
 	return 0
 }
 
+func OrInt32(a, b int32, is ...int32) int32 {
+	if !IsDefaultValue(a) {
+		return a
+	}
+	if !IsDefaultValue(b) {
+		return b
+	}
+	for _, v := range is {
+		if !IsDefaultValue(v) {
+			return v
+		}
+	}
+	return 0
+}
+
+func OrInt16(a, b int16, is ...int16) int16 {
+	if !IsDefaultValue(a) {
+		return a
+	}
+	if !IsDefaultValue(b) {
+		return b
+	}
+	for _, v := range is {
+		if !IsDefaultValue(v) {
+			return v
+		}
+	}
+	return 0
+}
+
+func OrInt8(a, b int8, is ...int8) int8 {
+	if !IsDefaultValue(a) {
+		return a
+	}
+	if !IsDefaultValue(b) {
+		return b
+	}
+	for _, v := range is {
+		if !IsDefaultValue(v) {
+			return v
+		}
+	}
+	return 0
+}
+
+func OrInt(a, b int, is ...int) int {
+	if !IsDefaultValue(a) {
+		return a
+	}
+	if !IsDefaultValue(b) {
+		return b
+	}
+	for _, v := range is {
+		if !IsDefaultValue(v) {
+			return v
+		}
+	}
+	return 0
+}
+
 func Or(a, b interface{}, vals ...interface{}) interface{} {
 	if !IsDefaultValue(a) {
 		return a
