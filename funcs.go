@@ -159,6 +159,36 @@ func OrInt(a, b int, is ...int) int {
 	return 0
 }
 
+func OrFloat64(a, b float64, is ...float64) float64 {
+	if !IsDefaultValue(a) {
+		return a
+	}
+	if !IsDefaultValue(b) {
+		return b
+	}
+	for _, v := range is {
+		if !IsDefaultValue(v) {
+			return v
+		}
+	}
+	return 0
+}
+
+func OrFloat32(a, b float32, is ...float32) float32 {
+	if !IsDefaultValue(a) {
+		return a
+	}
+	if !IsDefaultValue(b) {
+		return b
+	}
+	for _, v := range is {
+		if !IsDefaultValue(v) {
+			return v
+		}
+	}
+	return 0
+}
+
 func Or(a, b interface{}, vals ...interface{}) interface{} {
 	if !IsDefaultValue(a) {
 		return a
