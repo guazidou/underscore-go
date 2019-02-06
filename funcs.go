@@ -95,286 +95,153 @@ func OrBool(a, b bool, bs ...bool) bool {
 }
 
 func OrInt64(a, b int64, is ...int64) int64 {
-	if !IsDefaultValue(a) {
-		return a
-	}
-	if !IsDefaultValue(b) {
-		return b
-	}
-	for _, v := range is {
-		if !IsDefaultValue(v) {
-			return v
-		}
+	res := Or(a, b, is)
+	if res != nil {
+		return res.(int64)
 	}
 	return 0
 }
 
 func OrInt32(a, b int32, is ...int32) int32 {
-	if !IsDefaultValue(a) {
-		return a
-	}
-	if !IsDefaultValue(b) {
-		return b
-	}
-	for _, v := range is {
-		if !IsDefaultValue(v) {
-			return v
-		}
+	res := Or(a, b, is)
+	if res != nil {
+		return res.(int32)
 	}
 	return 0
 }
 
 func OrInt16(a, b int16, is ...int16) int16 {
-	if !IsDefaultValue(a) {
-		return a
-	}
-	if !IsDefaultValue(b) {
-		return b
-	}
-	for _, v := range is {
-		if !IsDefaultValue(v) {
-			return v
-		}
+	res := Or(a, b, is)
+	if res != nil {
+		return res.(int16)
 	}
 	return 0
 }
 
 func OrInt8(a, b int8, is ...int8) int8 {
-	if !IsDefaultValue(a) {
-		return a
-	}
-	if !IsDefaultValue(b) {
-		return b
-	}
-	for _, v := range is {
-		if !IsDefaultValue(v) {
-			return v
-		}
+	res := Or(a, b, is)
+	if res != nil {
+		return res.(int8)
 	}
 	return 0
 }
 
 func OrInt(a, b int, is ...int) int {
-	if !IsDefaultValue(a) {
-		return a
-	}
-	if !IsDefaultValue(b) {
-		return b
-	}
-	for _, v := range is {
-		if !IsDefaultValue(v) {
-			return v
-		}
+	res := Or(a, b, is)
+	if res != nil {
+		return res.(int)
 	}
 	return 0
 }
 
 func OrFloat64(a, b float64, is ...float64) float64 {
-	if !IsDefaultValue(a) {
-		return a
-	}
-	if !IsDefaultValue(b) {
-		return b
-	}
-	for _, v := range is {
-		if !IsDefaultValue(v) {
-			return v
-		}
+	res := Or(a, b, is)
+	if res != nil {
+		return res.(float64)
 	}
 	return 0
 }
 
 func OrFloat32(a, b float32, is ...float32) float32 {
-	if !IsDefaultValue(a) {
-		return a
-	}
-	if !IsDefaultValue(b) {
-		return b
-	}
-	for _, v := range is {
-		if !IsDefaultValue(v) {
-			return v
-		}
+	res := Or(a, b, is)
+	if res != nil {
+		return res.(float32)
 	}
 	return 0
 }
 
 func OrIntArray(arr1, arr2 []int, arrs ...[]int) []int {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]int)
 	}
 	return []int{}
 }
 
 func OrInt8Array(arr1, arr2 []int8, arrs ...[]int8) []int8 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]int8)
 	}
 	return []int8{}
 }
 
 func OrInt16Array(arr1, arr2 []int16, arrs ...[]int16) []int16 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]int16)
 	}
 	return []int16{}
 }
 
 func OrInt32Array(arr1, arr2 []int32, arrs ...[]int32) []int32 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]int32)
 	}
 	return []int32{}
 }
 
 func OrInt64Array(arr1, arr2 []int64, arrs ...[]int64) []int64 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]int64)
 	}
 	return []int64{}
 }
 
 func OrUIntArray(arr1, arr2 []uint, arrs ...[]uint) []uint {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]uint)
 	}
 	return []uint{}
 }
 
 func OrUInt8Array(arr1, arr2 []uint8, arrs ...[]uint8) []uint8 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]uint8)
 	}
 	return []uint8{}
 }
 
 func OrUInt16Array(arr1, arr2 []uint16, arrs ...[]uint16) []uint16 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]uint16)
 	}
 	return []uint16{}
 }
 
 func OrUInt32Array(arr1, arr2 []uint32, arrs ...[]uint32) []uint32 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]uint32)
 	}
 	return []uint32{}
 }
 
 func OrUInt64Array(arr1, arr2 []uint64, arrs ...[]uint64) []uint64 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]uint64)
 	}
 	return []uint64{}
 }
 
 func OrFloat32Array(arr1, arr2 []float32, arrs ...[]float32) []float32 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]float32)
 	}
 	return []float32{}
 }
 
 func OrFloat64Array(arr1, arr2 []float64, arrs ...[]float64) []float64 {
-	if !IsDefaultValue(arr1) {
-		return arr1
-	}
-	if !IsDefaultValue(arr2) {
-		return arr2
-	}
-	for _, arr := range arrs {
-		if len(arr) != 0 {
-			return arr
-		}
+	res := Or(arr1, arr2, arrs)
+	if res != nil {
+		return res.([]float64)
 	}
 	return []float64{}
 }
