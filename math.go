@@ -1,5 +1,7 @@
 package go_
 
+import "math"
+
 func MinInt32(a, b int32) int32 {
 	if a < b {
 		return a
@@ -61,4 +63,8 @@ func MinFloat64(a, b float64) float64 {
 		return a
 	}
 	return b
+}
+
+func PowInt64(x, y int64) int64 {
+	return int64(math.Pow(float64(x), float64(y)))
 }
