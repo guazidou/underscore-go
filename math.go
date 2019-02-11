@@ -68,3 +68,10 @@ func MinFloat64(a, b float64) float64 {
 func PowInt64(x, y int64) int64 {
 	return int64(math.Pow(float64(x), float64(y)))
 }
+
+func ABSInt64(x int64) int64 {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
