@@ -6,32 +6,39 @@ func NewHashSet(size int) HashSet {
 	return make(map[interface{}]bool, size)
 }
 
-func (set HashSet) Add(key interface{}) {
-	set[key] = true
+func (set HashSet) Add(ele interface{}) {
+	set[ele] = true
 }
 
-func (set HashSet) Contains(key interface{}) bool {
-	return set[key]
+func (set HashSet) Contains(ele interface{}) bool {
+	return set[ele]
 }
 
-func (set HashSet) LoadWithDefault(key interface{}, defVal bool) bool {
-	return Or(set.Contains(key), defVal).(bool)
+func (set HashSet) SetIfNotExist(ele interface{}) bool {
+	pre := set.Contains(ele)
+	set.Add(ele)
+	return pre
 }
 
-func (set HashSet) Remove(key interface{}) {
-	delete(set, key)
+func (set HashSet) Remove(ele interface{}) {
+	delete(set, ele)
 }
 
 func (set HashSet) Keys() []interface{} {
 	res := make([]interface{}, 0, len(set))
-	for k := range set {
-		res = append(res, k)
+	for e := range set {
+		res = append(res, e)
 	}
 	return res
 }
 
 func (set HashSet) Size() int {
 	return len(set)
+}
+
+func (set HashSet) Replace(ele1, ele2 interface{}) {
+	set.Remove(ele1)
+	set.Add(ele2)
 }
 
 func (set HashSet) ForEach(f func(interface{})) {
@@ -42,17 +49,17 @@ func (set HashSet) ForEach(f func(interface{})) {
 
 func (set HashSet) Map(f func(interface{}) interface{}) []interface{} {
 	res := make([]interface{}, 0, len(set))
-	for k := range set {
-		res = append(res, f(k))
+	for e := range set {
+		res = append(res, f(e))
 	}
 	return res
 }
 
 func (set HashSet) Intersect(another HashSet) HashSet {
 	res := NewHashSet(len(set))
-	set.ForEach(func(k interface{}) {
-		if another.Contains(k) {
-			res.Add(k)
+	set.ForEach(func(ele interface{}) {
+		if another.Contains(ele) {
+			res.Add(ele)
 		}
 	})
 	return res
@@ -67,9 +74,9 @@ func (set HashSet) Union(another HashSet) HashSet {
 
 func (set HashSet) Diff(another HashSet) HashSet {
 	res := NewHashSet(len(set))
-	res.ForEach(func(k interface{}) {
-		if !another.Contains(k) {
-			res.Add(k)
+	res.ForEach(func(ele interface{}) {
+		if !another.Contains(ele) {
+			res.Add(ele)
 		}
 	})
 	return res
