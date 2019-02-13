@@ -52,8 +52,9 @@ func IsDefaultValue(a interface{}) bool {
 		return a == ""
 	case []string:
 		return len(a.([]string)) == 0
+	default:
+		return a == nil
 	}
-	return false
 }
 
 func NotEmpty(s string) bool {
