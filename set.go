@@ -40,7 +40,7 @@ func (set HashSet) Remove(ele interface{}) {
 	delete(set, ele)
 }
 
-func (set HashSet) Keys() []interface{} {
+func (set HashSet) Values() []interface{} {
 	res := make([]interface{}, 0, len(set))
 	for e := range set {
 		res = append(res, e)
