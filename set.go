@@ -47,10 +47,10 @@ func (set HashSet) ForEach(f func(interface{})) {
 	}
 }
 
-func (set HashSet) Map(f func(interface{}) interface{}) []interface{} {
-	res := make([]interface{}, 0, len(set))
+func (set HashSet) Map(f func(interface{}) interface{}) HashSet {
+	res := NewHashSet(set.Size())
 	for e := range set {
-		res = append(res, f(e))
+		res.Add(f(e))
 	}
 	return res
 }
