@@ -10,12 +10,12 @@ func (set HashSet) Add(key interface{}) {
 	set[key] = true
 }
 
-func (set HashSet) Contain(key interface{}) bool {
+func (set HashSet) Contains(key interface{}) bool {
 	return set[key]
 }
 
 func (set HashSet) LoadWithDefault(key interface{}, defVal bool) bool {
-	return Or(set.Contain(key), defVal).(bool)
+	return Or(set.Contains(key), defVal).(bool)
 }
 
 func (set HashSet) Remove(key interface{}) {
@@ -51,7 +51,7 @@ func (set HashSet) Map(f func(interface{}) interface{}) []interface{} {
 func (set HashSet) Intersect(another HashSet) HashSet {
 	res := NewHashSet(len(set))
 	set.ForEach(func(k interface{}) {
-		if another.Contain(k) {
+		if another.Contains(k) {
 			res.Add(k)
 		}
 	})
@@ -68,7 +68,7 @@ func (set HashSet) Union(another HashSet) HashSet {
 func (set HashSet) Diff(another HashSet) HashSet {
 	res := NewHashSet(len(set))
 	res.ForEach(func(k interface{}) {
-		if !another.Contain(k) {
+		if !another.Contains(k) {
 			res.Add(k)
 		}
 	})
