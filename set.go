@@ -2,6 +2,10 @@ package go_
 
 type HashSet map[interface{}]bool
 
+func NewHashSet(size int) HashSet {
+	return make(map[interface{}]bool, size)
+}
+
 func (set HashSet) Add(key interface{}) {
 	set[key] = true
 }
@@ -41,5 +45,32 @@ func (set HashSet) Map(f func(interface{}) interface{}) []interface{} {
 	for k := range set {
 		res = append(res, f(k))
 	}
+	return res
+}
+
+func (set HashSet) Intersect(another HashSet) HashSet {
+	res := NewHashSet(len(set))
+	set.ForEach(func(k interface{}) {
+		if another.Contain(k) {
+			res.Add(k)
+		}
+	})
+	return res
+}
+
+func (set HashSet) Union(another HashSet) HashSet {
+	res := NewHashSet(len(set) + len(another))
+	set.ForEach(res.Add)
+	another.ForEach(res.Add)
+	return res
+}
+
+func (set HashSet) Diff(another HashSet) HashSet {
+	res := NewHashSet(len(set))
+	res.ForEach(func(k interface{}) {
+		if !another.Contain(k) {
+			res.Add(k)
+		}
+	})
 	return res
 }
