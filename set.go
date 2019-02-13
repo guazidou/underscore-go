@@ -6,6 +6,22 @@ func NewHashSet(size int) HashSet {
 	return make(map[interface{}]bool, size)
 }
 
+func NewHashSetFromInt64List(data []int64) HashSet {
+	set := NewHashSet(len(data))
+	for _, v := range data {
+		set.Add(v)
+	}
+	return set
+}
+
+func NewHashSetFromStringList(data []string) HashSet {
+	set := NewHashSet(len(data))
+	for _, v := range data {
+		set.Add(v)
+	}
+	return set
+}
+
 func (set HashSet) Add(ele interface{}) {
 	set[ele] = true
 }
