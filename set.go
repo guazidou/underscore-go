@@ -1,5 +1,19 @@
 package go_
 
+type Set interface {
+	Add(element interface{})
+	Contains(element interface{}) bool
+	Remove(element interface{})
+	SetIfNotExist(element interface{}) bool
+	Values() []interface{}
+	Size() int
+	Replace(element1, element2 interface{})
+	ForEach(f func(element interface{}))
+	Map(f func(element interface{}) interface{}) Set
+	Union(another Set) Set
+	Diff(another Set) Set
+}
+
 type HashSet map[interface{}]bool
 
 func NewHashSet(size int) HashSet {
@@ -63,7 +77,7 @@ func (set HashSet) ForEach(f func(interface{})) {
 	}
 }
 
-func (set HashSet) Map(f func(interface{}) interface{}) HashSet {
+func (set HashSet) Map(f func(interface{}) interface{}) Set {
 	res := NewHashSet(set.Size())
 	for e := range set {
 		res.Add(f(e))
@@ -81,14 +95,14 @@ func (set HashSet) Intersect(another HashSet) HashSet {
 	return res
 }
 
-func (set HashSet) Union(another HashSet) HashSet {
-	res := NewHashSet(len(set) + len(another))
+func (set HashSet) Union(another Set) Set {
+	res := NewHashSet(set.Size() + another.Size())
 	set.ForEach(res.Add)
 	another.ForEach(res.Add)
 	return res
 }
 
-func (set HashSet) Diff(another HashSet) HashSet {
+func (set HashSet) Diff(another Set) Set {
 	res := NewHashSet(len(set))
 	res.ForEach(func(ele interface{}) {
 		if !another.Contains(ele) {
