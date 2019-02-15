@@ -1,5 +1,11 @@
 package go_
 
+import (
+	"sync"
+
+	"github.com/elastic/beats/libbeat/common/atomic"
+)
+
 type Set interface {
 	Add(element interface{})
 	Contains(element interface{}) bool
@@ -110,4 +116,91 @@ func (set HashSet) Diff(another Set) Set {
 		}
 	})
 	return res
+}
+
+type ConcurrentHashSet struct {
+	data sync.Map
+}
+
+func NewConcurrentHashSet() *ConcurrentHashSet {
+	return &ConcurrentHashSet{}
+}
+
+func (cSet ConcurrentHashSet) Add(element interface{}) {
+	cSet.SetIfNotExist(element)
+}
+
+func (cSet ConcurrentHashSet) Contains(element interface{}) bool {
+	val, found := cSet.data.Load(element)
+	return found && val.(bool)
+}
+
+func (cSet ConcurrentHashSet) Remove(element interface{}) {
+	cSet.data.Delete(element)
+}
+
+func (cSet ConcurrentHashSet) SetIfNotExist(element interface{}) bool {
+	actual, loaded := cSet.data.LoadOrStore(element, true)
+	return loaded && actual.(bool)
+}
+
+func (cSet ConcurrentHashSet) Values() []interface{} {
+	res := make([]interface{}, 0)
+	cSet.data.Range(func(key, value interface{}) bool {
+		res = append(res, key)
+		return true
+	})
+	return res
+}
+
+func (cSet ConcurrentHashSet) Size() int {
+	var c atomic.Int
+	cSet.data.Range(func(key, value interface{}) bool {
+		if value.(bool) {
+			c.Add(1)
+		}
+		return true
+	})
+	return c.Load()
+}
+
+func (cSet ConcurrentHashSet) Replace(element1, element2 interface{}) {
+	cSet.data.Delete(element1)
+	cSet.data.Store(element2, true)
+}
+
+func (cSet ConcurrentHashSet) ForEach(f func(element interface{})) {
+	cSet.data.Range(func(key, value interface{}) bool {
+		f(key)
+		return true
+	})
+}
+
+func (cSet ConcurrentHashSet) Map(f func(element interface{}) interface{}) Set {
+	set := NewConcurrentHashSet()
+	cSet.ForEach(func(element interface{}) {
+		set.Add(f(element))
+	})
+	return set
+}
+
+func (cSet ConcurrentHashSet) Union(another Set) Set {
+	set := NewConcurrentHashSet()
+	cSet.ForEach(func(element interface{}) {
+		set.Add(element)
+	})
+	another.ForEach(func(element interface{}) {
+		set.Add(element)
+	})
+	return set
+}
+
+func (cSet ConcurrentHashSet) Diff(another Set) Set {
+	set := NewConcurrentHashSet()
+	cSet.ForEach(func(element interface{}) {
+		if !another.Contains(element) {
+			set.Add(element)
+		}
+	})
+	return set
 }
