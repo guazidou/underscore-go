@@ -2,8 +2,6 @@ package go_
 
 import (
 	"sync"
-
-	"github.com/elastic/beats/libbeat/common/atomic"
 )
 
 type Set interface {
@@ -154,14 +152,14 @@ func (cSet ConcurrentHashSet) Values() []interface{} {
 }
 
 func (cSet ConcurrentHashSet) Size() int {
-	var c atomic.Int
+	l := 0
 	cSet.data.Range(func(key, value interface{}) bool {
 		if value.(bool) {
-			c.Add(1)
+			l++
 		}
 		return true
 	})
-	return c.Load()
+	return l
 }
 
 func (cSet ConcurrentHashSet) Replace(element1, element2 interface{}) {
