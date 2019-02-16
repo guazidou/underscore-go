@@ -43,7 +43,7 @@ func JointInt64(data []int64, sep string) string {
 }
 
 // This method returns an map composed from key-value pairs. It will ignore the pair that are not formed in key, value format.
-func FromPairs(data [][]string) map[string]string {
+func FromPairs(data ...[]string) map[string]string {
 	res := make(map[string]string, len(data))
 	for _, pair := range data {
 		if len(pair) != 2 {
