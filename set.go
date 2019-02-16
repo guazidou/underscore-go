@@ -1,6 +1,7 @@
 package go_
 
 import (
+	"strings"
 	"sync"
 )
 
@@ -39,6 +40,10 @@ func NewHashSetFromStringList(data []string) Set {
 		set.Add(v)
 	}
 	return set
+}
+
+func NewHashSetFromCommaString(data string) Set {
+	return NewHashSetFromStringList(strings.Split(data, ","))
 }
 
 func (set HashSet) Add(ele interface{}) {
