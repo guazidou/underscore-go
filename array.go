@@ -41,3 +41,15 @@ func JointInt64(data []int64, sep string) string {
 	}
 	return buffer.String()
 }
+
+// This method returns an map composed from key-value pairs. It will ignore the pair that are not formed in key, value format.
+func FromPairs(data [][]string) map[string]string {
+	res := make(map[string]string, len(data))
+	for _, pair := range data {
+		if len(pair) != 2 {
+			continue
+		}
+		res[pair[0]] = pair[1]
+	}
+	return res
+}
