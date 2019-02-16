@@ -14,17 +14,18 @@ type Set interface {
 	Replace(element1, element2 interface{})
 	ForEach(f func(element interface{}))
 	Map(f func(element interface{}) interface{}) Set
+	Intersect(another Set) Set
 	Union(another Set) Set
 	Diff(another Set) Set
 }
 
 type HashSet map[interface{}]bool
 
-func NewHashSet(size int) HashSet {
-	return make(map[interface{}]bool, size)
+func NewHashSet(size int) Set {
+	return HashSet(make(map[interface{}]bool, size))
 }
 
-func NewHashSetFromInt64List(data []int64) HashSet {
+func NewHashSetFromInt64List(data []int64) Set {
 	set := NewHashSet(len(data))
 	for _, v := range data {
 		set.Add(v)
@@ -32,7 +33,7 @@ func NewHashSetFromInt64List(data []int64) HashSet {
 	return set
 }
 
-func NewHashSetFromStringList(data []string) HashSet {
+func NewHashSetFromStringList(data []string) Set {
 	set := NewHashSet(len(data))
 	for _, v := range data {
 		set.Add(v)
@@ -89,7 +90,7 @@ func (set HashSet) Map(f func(interface{}) interface{}) Set {
 	return res
 }
 
-func (set HashSet) Intersect(another HashSet) HashSet {
+func (set HashSet) Intersect(another Set) Set {
 	res := NewHashSet(len(set))
 	set.ForEach(func(ele interface{}) {
 		if another.Contains(ele) {
@@ -180,6 +181,16 @@ func (cSet ConcurrentHashSet) Map(f func(element interface{}) interface{}) Set {
 		set.Add(f(element))
 	})
 	return set
+}
+
+func (cSet ConcurrentHashSet) Intersect(another Set) Set {
+	res := NewConcurrentHashSet()
+	another.ForEach(func(element interface{}) {
+		if cSet.Contains(element) {
+			res.Add(element)
+		}
+	})
+	return res
 }
 
 func (cSet ConcurrentHashSet) Union(another Set) Set {
