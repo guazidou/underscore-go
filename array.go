@@ -53,3 +53,14 @@ func FromPairs(data ...[]string) map[string]string {
 	}
 	return res
 }
+
+func ZipObject(key []string, value []string) map[string]string {
+	if len(key) < len(value) {
+		return map[string]string{} // return empty map when given key is shorter than value
+	}
+	res := make(map[string]string, len(key))
+	for i := range key {
+		res[key[i]] = value[i]
+	}
+	return res
+}
