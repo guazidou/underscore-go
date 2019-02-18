@@ -64,3 +64,12 @@ func ZipObject(key []string, value []string) map[string]string {
 	}
 	return res
 }
+
+func CountBy(data []interface{}, transFunc func(interface{}) interface{}) map[interface{}]int64 {
+	res := make(map[interface{}]int64)
+	for _, v := range data {
+		t := transFunc(v)
+		res[t] = res[t] + 1
+	}
+	return res
+}
