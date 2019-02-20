@@ -65,6 +65,17 @@ func ZipObject(key []string, value []string) map[string]string {
 	return res
 }
 
+func UnzipObject(data map[string]string) ([]string, []string) {
+	key := make([]string, 0, len(data))
+	value := make([]string, 0, len(data))
+
+	for k, v := range data {
+		key = append(key, k)
+		value = append(value, v)
+	}
+	return key, value
+}
+
 func CountBy(data []interface{}, transFunc func(interface{}) interface{}) map[interface{}]int64 {
 	res := make(map[interface{}]int64)
 	for _, v := range data {
