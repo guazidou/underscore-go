@@ -84,3 +84,19 @@ func CountBy(data []interface{}, transFunc func(interface{}) interface{}) map[in
 	}
 	return res
 }
+
+func DiffInt64(data []int64, exclude ...[]int64) []int64 {
+	set := NewHashSetFromInt64List(data)
+	for _, arr := range exclude {
+		for _, v := range arr {
+			if set.Contains(v) {
+				set.Remove(v)
+			}
+		}
+	}
+	res := make([]int64, 0, set.Size())
+	set.ForEach(func(element interface{}) {
+		res = append(res, element.(int64))
+	})
+	return res
+}
