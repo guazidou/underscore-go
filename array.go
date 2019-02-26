@@ -100,3 +100,19 @@ func DiffInt64(data []int64, exclude ...[]int64) []int64 {
 	})
 	return res
 }
+
+func DiffString(data []string, exclude ...[]string) []string {
+	set := NewHashSetFromStringList(data)
+	for _, arr := range exclude {
+		for _, v := range arr {
+			if set.Contains(v) {
+				set.Remove(v)
+			}
+		}
+	}
+	res := make([]string, 0, set.Size())
+	set.ForEach(func(element interface{}) {
+		res = append(res, element.(string))
+	})
+	return res
+}
